@@ -25,25 +25,33 @@ import org.apache.commons.io.IOUtils;
 import org.mates.osb.export.IExportDirectory;
 import org.mates.osb.export.IExportItem;
 import org.mates.osb.export.IExportProvider;
+import org.mates.osb.path.IPath;
+import org.mates.osb.resources.ExportProvider;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 
-public class ExportFolderProvider implements IExportProvider {
+public class ExportFolderProvider extends ExportProvider implements IExportProvider {
 
 	protected static final String EXPORT_FILE_NAME = "_folderdata.LocationData";
 
-	private IResource folder;
-
 	public ExportFolderProvider(IResource dir) {
-		folder = dir;
+		super(dir);
 	}
 
 	public IExportItem getExportItem() {
 		return null;
 	}
 
+	protected String getFilename() {
+		return EXPORT_FILE_NAME;
+	}
+
+	public ReferenceType getResourceType() {
+		return ReferenceType.LocationData;
+	}
+
 	protected File getDestDirectory(IExportDirectory dir) {
-		String path = folder.getPath().buildPath("/");
+		String path = getPath().buildPath("/");
 		File export = dir.getExportDir();
 		return new File(export, path);
 	}
@@ -55,27 +63,22 @@ public class ExportFolderProvider implements IExportProvider {
 		}
 		writeFolderSpecificData(destDir);
 	}
-	
-	protected String getFilename() {
-		return EXPORT_FILE_NAME;
-	}
 
-	public ReferenceType getResourceType() {		
-		return ReferenceType.LocationData;
-	}
-	
-		
 	protected void writeFolderSpecificData(File destFolder) throws IOException {
 		InputStream resourceAsStream = null;
 		FileOutputStream fileOutputStream = null;
 		try {
 			fileOutputStream = new FileOutputStream(new File(destFolder, getFilename()));
 			resourceAsStream = ExportProjectProvider.class.getResourceAsStream("LocationData.xml");
-			IOUtils.copy(resourceAsStream, fileOutputStream);		
+			IOUtils.copy(resourceAsStream, fileOutputStream);
 		} finally {
 			IOUtils.closeQuietly(resourceAsStream);
 			IOUtils.closeQuietly(fileOutputStream);
 		}
+	}
+
+	protected IPath getPath() {
+		return getResource().getPath();
 	}
 
 }

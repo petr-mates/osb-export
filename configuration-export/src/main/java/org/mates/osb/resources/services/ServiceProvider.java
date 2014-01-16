@@ -16,25 +16,55 @@ package org.mates.osb.resources.services;
  * limitations under the License.
  */
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.mates.osb.export.IExportDirectory;
-import org.mates.osb.export.IExportItem;
 import org.mates.osb.export.IExportProvider;
+import org.mates.osb.resources.ExportProvider;
 import org.mates.osb.resources.IResource;
+import org.mates.osb.utils.FileUtils;
 
-public abstract class ServiceProvider implements IExportProvider {
-
-	private IResource resource;
+public abstract class ServiceProvider extends ExportProvider implements IExportProvider {
 
 	public ServiceProvider(IResource resource) {
-		this.resource = resource;
+		super(resource);
 	}
 
-	public IExportItem getExportItem() {
-		return null;
+	protected abstract String getFilename();
+
+	protected File getTargetFile(IExportDirectory dir) {
+		String pathWithoutExtension = getResource().getPath().buildPath("/");
+		String stringFilePath = pathWithoutExtension + "." + getResourceType().name();
+		return new File(dir.getExportDir(), stringFilePath);
 	}
 
-	public void exportTo(IExportDirectory dir) {
-		
+	protected void createdDirForFile(File file) {
+		file.getParentFile().mkdirs();
 	}
 
+	@Override
+	public void exportTo(IExportDirectory dir) throws IOException {
+		File destFile = getTargetFile(dir);
+		createdDirForFile(destFile);
+
+		writeSpecificData(destFile);
+	}
+
+	protected void writeSpecificData(File destFile) throws IOException {
+		FileOutputStream fous = null;
+		InputStream source = null;
+		try {
+			fous = new FileOutputStream(destFile);
+			source = getResource().getSource().getInputStream();
+
+			IOUtils.copy(source, fous);
+		} finally {
+			FileUtils.closeQuietly(fous);
+			FileUtils.closeQuietly(source);
+		}
+	}
 }

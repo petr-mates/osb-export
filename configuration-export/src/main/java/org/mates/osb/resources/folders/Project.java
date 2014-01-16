@@ -18,6 +18,7 @@ package org.mates.osb.resources.folders;
 
 import java.io.File;
 
+import org.mates.osb.export.IExportProvider;
 import org.mates.osb.path.IPath;
 import org.mates.osb.path.Path;
 import org.mates.osb.resources.IResource;
@@ -35,6 +36,10 @@ public class Project extends Folder implements IResource {
 
 	public IPath getPath() {
 		return new Path(getName());
+	}
+
+	public IExportProvider getExportProvider() {
+		return new ExportProjectProvider(this);
 	}
 
 }

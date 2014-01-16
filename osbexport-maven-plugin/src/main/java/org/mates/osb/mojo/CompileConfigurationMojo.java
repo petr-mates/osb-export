@@ -17,6 +17,8 @@ package org.mates.osb.mojo;
  */
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -24,56 +26,101 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.mates.osb.export.IExportDirectory;
+import org.mates.osb.resources.IResource;
+import org.mates.osb.resources.ResourceBuilder;
+import org.mates.osb.resources.folders.Folder;
 
 /**
- * Goal exports all projects from source directory to (output directory)/osb-conf.
+ * Goal exports all projects from source directory to (output
+ * directory)/osb-conf.
  * 
  */
 @Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
 public class CompileConfigurationMojo extends AbstractMojo {
 
-    /**
-     * build output directory. - default=${project.build.directory}/osb-conf.
-     * -DoutputDir=...
-     */
-    @Parameter(defaultValue = "${project.build.directory}/osb-conf", property = "outputDir", required = true)
-    private File outputDirectory;
+	/**
+	 * build output directory. - default=${project.build.directory}/osb-conf.
+	 * -DoutputDir=...
+	 */
+	@Parameter(defaultValue = "${project.build.directory}/osb-conf", property = "outputDir", required = true)
+	private File outputDirectory;
 
-    /**
-     * directory excluded from scan. - default=target
-     * -DexcludeDir=...
-     */
-    @Parameter(defaultValue = "target", property = "excludeDir", required = false)
-    private String excludeDir;
+	/**
+	 * directory excluded from scan. - default=target -DexcludeDir=...
+	 */
+	@Parameter(defaultValue = "target", property = "excludeDir", required = false)
+	private String excludeDir;
 
-    /**
-     * source directory to be scanned. - default=${project.basedir}.
-     * -DsourceDir=...
-     */
-    @Parameter(defaultValue = "${project.basedir}", property = "sourceDir", required = true)
-    private File sourceDir;
+	/**
+	 * source directory to be scanned. - default=${project.basedir}.
+	 * -DsourceDir=...
+	 */
+	@Parameter(defaultValue = "${project.basedir}", property = "sourceDir", required = true)
+	private File sourceDir;
 
-    /**
+	/**
      * 
      */
-    @Parameter(property = "ignoredDirs", required = false)
-    private String[] ignoredDirs = new String[0];
-    
-    private Log log;
+	@Parameter(property = "ignoredDirs", required = false)
+	private String[] ignoredDirs = new String[0];
 
-    public void execute() throws MojoExecutionException {
-        File destDir = outputDirectory;
-        if (new File(destDir, "ExportInfo").exists()) {
-            log.info("ExportInfo exists .... return");
-            return;
-        }
+	private Log log;
 
-        
-    }
+	public void execute() throws MojoExecutionException {
+		File destDir = outputDirectory;
+		if (new File(destDir, "ExportInfo").exists()) {
+			log.info("ExportInfo exists .... return");
+			return;
+		}
+		processProjects(sourceDir);
+	}
 
-    @Override
-    public void setLog(Log aLog) {
-        super.setLog(aLog);
-        this.log = aLog;
-    }
+	protected void processProjects(File sourceDir) throws MojoExecutionException {
+		try {
+			File[] listFiles = sourceDir.listFiles();
+			for (File file : listFiles) {
+				if (file.isDirectory()) {
+					compileProject(new ResourceBuilder().buildTree(file));
+				}
+			}
+		} catch (IOException e) {
+			throw new MojoExecutionException("error compile configuration", e);
+		}
+	}
+
+	protected void compileProject(Folder project) throws IOException {
+		project.getExportProvider().exportTo(getExportDirectory());
+		
+		List<IResource> resources = project.getResources();
+		
+		for (IResource iResource : resources) {
+			if (iResource instanceof Folder) {
+				compileProject((Folder) iResource);
+			} else {
+				if (iResource.getExportProvider() != null) {
+					iResource.getExportProvider().exportTo(getExportDirectory());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void setLog(Log aLog) {
+		super.setLog(aLog);
+		this.log = aLog;
+	}
+
+	protected IExportDirectory getExportDirectory() {
+		return new ExportDirectory();
+	}
+
+	private class ExportDirectory implements IExportDirectory {
+
+		@Override
+		public File getExportDir() {
+			return outputDirectory;
+		}
+
+	}
 }
