@@ -59,7 +59,7 @@ public final class XmlHelper {
 		}
 	}
 
-	public static void writeToFile(Document aDoc, OutputStream aOut) {
+	public static void writeToStream(Document aDoc, OutputStream aOut) {
 		DOMImplementationRegistry registry = getDOMImplementationRegistry();
 
 		final DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");

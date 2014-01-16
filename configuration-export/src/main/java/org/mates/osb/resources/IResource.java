@@ -20,6 +20,13 @@ import org.mates.osb.ISource;
 import org.mates.osb.export.IExportProvider;
 import org.mates.osb.path.IPath;
 
+/**
+ * This interface represents all osb resources, like ProxyService,
+ * BussinesService, xml, wsdl and so on.
+ * 
+ * @author mates
+ * 
+ */
 public interface IResource {
 
 	/**
@@ -38,19 +45,22 @@ public interface IResource {
 
 	/**
 	 * Construct path for current resource.
+	 * 
 	 * @return
 	 */
 	public IPath getPath();
 
 	/**
 	 * returns resource for current resource if avaiable.
+	 * 
 	 * @return null if not source for resource
 	 */
 	public ISource getSource();
-	
+
 	/**
-	 * ExportProvider for this resource. ExportProvider prepares resource to export. 
-	 * Copy to dest directory, change extension, envelope source file. 
+	 * ExportProvider for this resource. ExportProvider prepares resource to
+	 * export. Copy to dest directory, change extension, envelope source file.
+	 * 
 	 * @return
 	 */
 	public IExportProvider getExportProvider();
