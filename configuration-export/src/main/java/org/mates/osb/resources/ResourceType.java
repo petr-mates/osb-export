@@ -50,4 +50,16 @@ public enum ResourceType {
 	 * osb flow definition
 	 */
 	FLOW,
+	/**
+	 * Service account
+	 */
+	ACCOUNT,
+	/**
+	 * Service Provider
+	 */
+	PROVIDER,
+	/**
+	 * Alert destination
+	 */
+	ALERT
 }

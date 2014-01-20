@@ -16,18 +16,22 @@ package org.mates.osb.resources.services;
  * limitations under the License.
  */
 
+
 import org.mates.osb.export.IExportItem;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 
-public class ProxyServiceProvider extends ServiceProvider {
+public class SimpleServiceProvider extends ServiceProvider {
 
-	public ProxyServiceProvider(IResource resource) {
+	private ReferenceType referenceType;
+
+	public SimpleServiceProvider(IResource resource, ReferenceType referenceType) {
 		super(resource);
+		this.referenceType = referenceType;
 	}
 
 	public ReferenceType getResourceType() {
-		return ReferenceType.ProxyService;
+		return referenceType;
 	}
 
 	@Override

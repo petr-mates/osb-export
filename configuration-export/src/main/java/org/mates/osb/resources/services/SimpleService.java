@@ -20,26 +20,54 @@ import java.io.File;
 import java.util.List;
 
 import org.mates.osb.export.IExportProvider;
-import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.IReference;
+import org.mates.osb.resources.IResource;
+import org.mates.osb.resources.ReferenceType;
 import org.mates.osb.resources.ResourceType;
 
-public class ProxyService extends Service {
+public class SimpleService extends Service {
 
-	public ProxyService(File file, IResource parent) {
+	private ResourceType resourceType;
+
+	public SimpleService(File file, IResource parent, ResourceType resourceType) {
 		super(file, parent);
+		this.resourceType = resourceType;
 	}
 
 	public ResourceType getType() {
-		return ResourceType.PROXY;
+		return resourceType;
 	}
 
 	public IExportProvider getExportProvider() {
-		return new ProxyServiceProvider(this);
+		return new SimpleServiceProvider(this, getReferenceType());
 	}
 
 	public List<IReference> getReferences() {
 		// TODO implements
 		return null;
+	}
+
+	protected ReferenceType getReferenceType() {
+		ReferenceType ref = null;
+		switch (resourceType) {
+		case BIZ:
+			ref = ReferenceType.BusinessService;
+			break;
+		case PROXY:
+			ref = ReferenceType.ProxyService;
+			break;
+		case ALERT:
+			ref = ReferenceType.AlertDestination;
+			break;
+		case PROVIDER:
+			ref = ReferenceType.ServiceProvider;
+			break;
+		case ACCOUNT:
+			ref = ReferenceType.ServiceAccount;
+			break;
+		default:
+			break;
+		}
+		return ref;
 	}
 }
