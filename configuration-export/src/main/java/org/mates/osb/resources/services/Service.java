@@ -22,8 +22,8 @@ import java.util.List;
 import org.mates.osb.ISource;
 import org.mates.osb.Source;
 import org.mates.osb.path.IPath;
+import org.mates.osb.resources.IReference;
 import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.Reference;
 import org.mates.osb.utils.FileUtils;
 
 public abstract class Service implements IResource {
@@ -50,7 +50,7 @@ public abstract class Service implements IResource {
 		return new Source(this.file);
 	}
 
-	public List<Reference> getReferences() {
+	public List<IReference> getReferences() {
 		// TODO implements
 		return null;
 	}

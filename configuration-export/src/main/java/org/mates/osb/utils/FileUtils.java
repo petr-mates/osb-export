@@ -22,11 +22,22 @@ import java.io.IOException;
 
 import org.apache.commons.io.FilenameUtils;
 
+/**
+ * Helper class for file operations.
+ * 
+ * @author mates
+ */
 public final class FileUtils {
 
 	private FileUtils() {
 	}
 
+	/**
+	 * Gets file extension. If file has no extension blank file is returned.
+	 * 
+	 * @param file
+	 * @return
+	 */
 	public static String getExtension(File file) {
 		String name = file.getName();
 		int lastIndexOf = name.lastIndexOf('.');
@@ -36,6 +47,11 @@ public final class FileUtils {
 		return "";
 	}
 
+	/**
+	 * Close quietly closeable resource.
+	 * 
+	 * @param what
+	 */
 	public static void closeQuietly(Closeable what) {
 		if (what != null) {
 			try {
@@ -46,6 +62,13 @@ public final class FileUtils {
 		}
 	}
 
+	/**
+	 * Gets base name of the file. Method trims extension and all path from full
+	 * path name.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public static String getBaseName(String name) {
 		return FilenameUtils.getBaseName(name);
 	}

@@ -21,6 +21,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Source object for file.
+ * 
+ * @author mates
+ * 
+ */
 public class Source implements ISource {
 
 	private File file;
@@ -29,6 +35,10 @@ public class Source implements ISource {
 		this.file = file;
 	}
 
+	/**
+	 * Opens
+	 * <code>InputStream<code> for specified file. Stream must be closed by caller.
+	 */
 	public InputStream getInputStream() throws IOException {
 		return new FileInputStream(file);
 	}

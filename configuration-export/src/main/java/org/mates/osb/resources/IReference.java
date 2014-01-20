@@ -16,9 +16,22 @@ package org.mates.osb.resources;
  * limitations under the License.
  */
 
-public interface Reference {
+/**
+ * Holder for resource references.
+ * @author mates
+ */
+public interface IReference {
 
+	/**
+	 * Holds type of resource to which this resource refers.
+	 * @return
+	 */
 	public ResourceType getType();
 
-	public String getValue();
+	/**
+	 * Path to reference. Reference is normalized path to referenced resource.
+	 * Directories are separated with '/'
+	 * @return
+	 */
+	public String getPath();
 }

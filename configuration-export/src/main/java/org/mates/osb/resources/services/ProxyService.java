@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.mates.osb.export.IExportProvider;
 import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.Reference;
+import org.mates.osb.resources.IReference;
 import org.mates.osb.resources.ResourceType;
 
 public class ProxyService extends Service {
@@ -38,7 +38,7 @@ public class ProxyService extends Service {
 		return new ProxyServiceProvider(this);
 	}
 
-	public List<Reference> getReferences() {
+	public List<IReference> getReferences() {
 		// TODO implements
 		return null;
 	}

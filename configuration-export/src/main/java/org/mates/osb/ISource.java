@@ -16,6 +16,10 @@ package org.mates.osb;
  * limitations under the License.
  */
 
+/**
+ * An object that implements this interface contains the information
+ * needed to act as source input.
+ */
 import java.io.IOException;
 import java.io.InputStream;
 
