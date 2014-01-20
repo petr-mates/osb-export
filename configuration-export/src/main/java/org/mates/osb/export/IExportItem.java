@@ -18,9 +18,46 @@ package org.mates.osb.export;
 
 /**
  * Holder for references that should be exported.
+ * 
  * @author mates
  */
 public interface IExportItem {
 
-	
+	/**
+	 * <pre>
+	 *  <imp:exportedItemInfo xmlns:imp="http://www.bea.com/wli/config/importexport"  instanceId="TST/AccountSettingsWSProxy" typeId="ProxyService" >
+	 * 	  <imp:properties>
+	 * 		 <imp:property name="representationversion" value="3000" />
+	 * 		 <imp:property name="dataclass" value="com.bea.wli.sb.services.impl.ServiceDefinitionImpl" />
+	 * 		 <imp:property name="isencrypted" value="false" />
+	 * 		 <imp:property name="jarentryname" value="TST/Account/ProxyService/AccountSettingsWSProxy.ProxyService" />
+	 * 		 <imp:property name="extrefs" value="AlertDestination$TST$Common$AlertDestination$HelpdeskEmailDestination" />
+	 * 		 <imp:property name="custom _special_data_class" value="com.bea.wli.config.project.impl.LocationDataImpl" />
+	 * 	   </imp:properties>
+	 *   </imp:exportedItemInfo>
+	 * </pre>
+	 */
+
+	public static final String REPRESENTATION_VERSION = "representationversion";
+	public static final String DATA_CLASS = "dataclass";
+	public static final String IS_ENCRYPTED = "isencrypted";
+	public static final String JAR_ENTRY_NAME = "jarentryname";
+	public static final String EXT_REFS = "extrefs";
+
+	public String getInstanceId();
+
+	public String getTypeId();
+
+	public void setRepresentationVersion(String value);
+
+	public void setDataClass(String value);
+
+	public void setIsEncrypted(String value);
+
+	public void setJarEntry(String value);
+
+	public void setExtRefs(String value);
+
+	public void setProperty(String key, String value);
+
 }

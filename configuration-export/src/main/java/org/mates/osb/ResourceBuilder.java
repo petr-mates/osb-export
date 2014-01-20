@@ -1,4 +1,4 @@
-package org.mates.osb.resources;
+package org.mates.osb;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -20,6 +20,9 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.mates.osb.resources.IResource;
+import org.mates.osb.resources.Resource;
+import org.mates.osb.resources.ResourceType;
 import org.mates.osb.resources.folders.Folder;
 import org.mates.osb.resources.folders.Project;
 import org.mates.osb.resources.services.SimpleService;

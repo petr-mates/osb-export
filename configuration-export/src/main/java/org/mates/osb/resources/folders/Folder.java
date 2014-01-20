@@ -18,9 +18,9 @@ package org.mates.osb.resources.folders;
 
 import java.io.File;
 
-import org.mates.osb.ISource;
 import org.mates.osb.export.IExportProvider;
 import org.mates.osb.path.IPath;
+import org.mates.osb.path.ISource;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.Resource;
 import org.mates.osb.resources.ResourceType;

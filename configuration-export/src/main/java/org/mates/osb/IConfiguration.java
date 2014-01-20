@@ -1,4 +1,9 @@
-package org.mates.osb.resources;
+package org.mates.osb;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.mates.osb.export.IExportDirectory;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -16,20 +21,11 @@ package org.mates.osb.resources;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+public interface IConfiguration {
 
-public abstract class Resource implements IResource, IFolderResource {
+	public void setSourceDirectory(File directory);
 
-	private List<IResource> resourceList = new ArrayList<IResource>();
+	public void addProject(String project);	
 
-	public void addResource(IResource resource) {
-		resourceList.add(resource);
-	}
-
-	@Override
-	public List<IResource> getResources() {		
-		return Collections.unmodifiableList(resourceList);
-	}
+	public void exportToDirectory(IExportDirectory output) throws IOException;
 }

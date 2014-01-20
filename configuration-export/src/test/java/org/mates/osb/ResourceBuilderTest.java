@@ -17,29 +17,16 @@ package org.mates.osb;
  */
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
-/**
- * Source object for file.
- * 
- * @author mates
- * 
- */
-public class Source implements ISource {
+import org.junit.Test;
+import org.mates.osb.ResourceBuilder;
 
-	private File file;
+public class ResourceBuilderTest {
 
-	public Source(File file) {
-		this.file = file;
+	@Test
+	public void test() {
+		ResourceBuilder resourceBuilder = new ResourceBuilder();
+		resourceBuilder.buildTree(new File("d:\\svn\\osb\\trunk\\configuration\\OBS"));
 	}
 
-	/**
-	 * Opens
-	 * <code>InputStream<code> for specified file. Stream must be closed by caller.
-	 */
-	public InputStream getInputStream() throws IOException {
-		return new FileInputStream(file);
-	}
 }

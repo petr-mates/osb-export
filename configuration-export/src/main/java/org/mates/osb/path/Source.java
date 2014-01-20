@@ -1,4 +1,4 @@
-package org.mates.osb.resources;
+package org.mates.osb.path;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -17,15 +17,29 @@ package org.mates.osb.resources;
  */
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
-import org.junit.Test;
+/**
+ * Source object for file.
+ * 
+ * @author mates
+ * 
+ */
+public class Source implements ISource {
 
-public class ResourceBuilderTest {
+	private File file;
 
-	@Test
-	public void test() {
-		ResourceBuilder resourceBuilder = new ResourceBuilder();
-		resourceBuilder.buildTree(new File("d:\\svn\\osb\\trunk\\configuration\\OBS"));
+	public Source(File file) {
+		this.file = file;
 	}
 
+	/**
+	 * Opens
+	 * <code>InputStream<code> for specified file. Stream must be closed by caller.
+	 */
+	public InputStream getInputStream() throws IOException {
+		return new FileInputStream(file);
+	}
 }
