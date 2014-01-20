@@ -68,20 +68,25 @@ public class ResourceBuilder {
 		return new Folder(file, parent);
 	}
 
-	public IResource getResource(File file, Folder parent) {
+	protected IResource getResource(File file, Folder parent) {
 		String extension = FileUtils.getExtension(file);
-		if ("proxy".equals(extension)) {
-			return new SimpleService(file, parent, ResourceType.PROXY);
+		ResourceType type = ResourceType.getTypeByExtension(extension);
+		// TODO jts
+		if (type == null) {
+			return null;
 		}
-		if ("biz".equals(extension)) {
-			return new SimpleService(file, parent, ResourceType.BIZ);
+		switch (type) {
+		case PROXY:
+		case BIZ:
+		case ALERT:
+		case PROVIDER:
+		case ACCOUNT:
+			return new SimpleService(file, parent, type);
+
+		default:
+			break;
 		}
-		if ("sa".equals(extension)) {
-			return new SimpleService(file, parent, ResourceType.ACCOUNT);
-		}
-		if ("skp".equals(extension)) {
-			return new SimpleService(file, parent, ResourceType.PROVIDER);
-		}
+
 		return null;
 	}
 }

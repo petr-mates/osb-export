@@ -29,37 +29,60 @@ public enum ResourceType {
 	/**
 	 * ProxyService
 	 */
-	PROXY,
+	PROXY("proxy"),
 	/**
 	 * BussinesService
 	 */
-	BIZ,
+	BIZ("biz"),
 	/**
 	 * Xml resource
 	 */
-	XML,
+	XML("xml"),
 	/**
 	 * Xml schema resource
 	 */
-	XSD,
+	XSD("xsd"),
 	/**
 	 * web service definition
 	 */
-	WSDL,
+	WSDL("wsdl"),
 	/**
 	 * osb flow definition
 	 */
-	FLOW,
+	FLOW("flow"),
 	/**
 	 * Service account
 	 */
-	ACCOUNT,
+	ACCOUNT("sa"),
 	/**
 	 * Service Provider
 	 */
-	PROVIDER,
+	PROVIDER("skp"),
 	/**
 	 * Alert destination
 	 */
-	ALERT
+	ALERT("alert");
+
+	private String extenstion;
+
+	ResourceType(String extension) {
+		this.extenstion = extension;
+	}
+
+	ResourceType() {
+		this.extenstion = "";
+	}
+
+	public String getExtension() {
+		return extenstion;
+	}
+
+	public static ResourceType getTypeByExtension(String extension) {
+		for (ResourceType resourceType : values()) {
+			if (resourceType.getExtension().equals(extension)) {
+				return resourceType;
+			}
+		}
+		return null;
+	}
 }
