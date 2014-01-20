@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.mates.osb.resources.folders.Folder;
 import org.mates.osb.resources.folders.Project;
+import org.mates.osb.resources.services.BussinesService;
 import org.mates.osb.resources.services.ProxyService;
 import org.mates.osb.utils.FileUtils;
 
@@ -66,8 +67,12 @@ public class ResourceBuilder {
 	}
 
 	public IResource getResource(File file, Folder parent) {
-		if ("proxy".equals(FileUtils.getExtension(file))) {
+		String extension = FileUtils.getExtension(file);
+		if ("proxy".equals(extension)) {
 			return new ProxyService(file, parent);
+		}
+		if ("biz".equals(extension)) {
+			return new BussinesService(file, parent);
 		}
 		return null;
 	}

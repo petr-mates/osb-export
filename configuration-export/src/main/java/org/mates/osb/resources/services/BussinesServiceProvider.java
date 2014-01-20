@@ -16,42 +16,30 @@ package org.mates.osb.resources.services;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.util.List;
-
-import org.mates.osb.ISource;
-import org.mates.osb.Source;
-import org.mates.osb.path.IPath;
+import org.mates.osb.export.IExportItem;
+import org.mates.osb.export.IExportProvider;
 import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.Reference;
-import org.mates.osb.utils.FileUtils;
+import org.mates.osb.resources.ReferenceType;
 
-public abstract class Service implements IResource {
+public class BussinesServiceProvider extends ServiceProvider implements IExportProvider {
 
-	private IResource parent;
-	private File file;
-
-	public Service(File file, IResource parent) {
-		this.parent = parent;
-		this.file = file;
-	}
-	
-	public String getName() {
-		return FileUtils.getBaseName(file.getName());
+	public BussinesServiceProvider(IResource resource) {
+		super(resource);
 	}
 
-	public IPath getPath() {
-		IPath path = parent.getPath();
-		path.addChild(getName());
-		return path;
+	public ReferenceType getResourceType() {
+		return ReferenceType.ProxyService;
 	}
 
-	public ISource getSource() {
-		return new Source(this.file);
+	@Override
+	protected String getFilename() {
+		return getResource().getName() + "." + getResourceType().name();
 	}
 
-	public List<Reference> getReferences() {
-		// TODO implements
+	@Override
+	public IExportItem getExportItem() {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
