@@ -1,5 +1,8 @@
 package org.mates.osb.export;
 
+import java.util.List;
+import java.util.Map;
+
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
  *
@@ -48,16 +51,20 @@ public interface IExportItem {
 
 	public String getTypeId();
 
-	public void setRepresentationVersion(String value);
+	public String getRepresentationVersion();
 
-	public void setDataClass(String value);
+	public String getDataClass();
 
-	public void setIsEncrypted(String value);
+	public String getIsEncrypted();
 
-	public void setJarEntry(String value);
+	public String getJarEntry();
 
-	public void setExtRefs(String value);
+	public void addExtRefs(String value);
 
-	public void setProperty(String key, String value);
+	public List<String> getExtRefs();
+
+	public void putProperty(String key, String value);
+
+	public Map<String, String> getProperties();
 
 }

@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.List;
 
 import org.mates.osb.export.IExportProvider;
-import org.mates.osb.resources.IReference;
+import org.mates.osb.reference.IReference;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 import org.mates.osb.resources.ResourceType;

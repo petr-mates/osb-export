@@ -1,4 +1,6 @@
-package org.mates.osb.resources;
+package org.mates.osb.reference;
+
+import org.mates.osb.resources.ResourceType;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -34,4 +36,10 @@ public interface IReference {
 	 * @return
 	 */
 	public String getPath();
+	
+	/**
+	 * Original value reference defined in resource. for example relative path from xsd import or include.
+	 * @return
+	 */
+	public String getOriginalValue();
 }

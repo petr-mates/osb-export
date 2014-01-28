@@ -22,7 +22,7 @@ import java.util.List;
 import org.mates.osb.path.IPath;
 import org.mates.osb.path.ISource;
 import org.mates.osb.path.Source;
-import org.mates.osb.resources.IReference;
+import org.mates.osb.reference.IReference;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.utils.FileUtils;
 
