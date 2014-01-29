@@ -16,6 +16,7 @@ package org.mates.osb;
  * limitations under the License.
  */
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,21 +41,27 @@ public class ExportInfoBuilder {
 
 	private XMLStreamWriter outX = null;
 
-	public void build(OutputStream out, List<IExportItem> items) throws XMLStreamException {
+	public void build(OutputStream out, List<IExportItem> items) throws IOException {
 		XMLOutputFactory newFactory = XMLOutputFactory.newFactory();
 		newFactory.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, true);
-		outX = newFactory.createXMLStreamWriter(out);
-		outX.setPrefix("imp", WL_OSB_EXPORT);
-		writeHeader();
+		try {
+			outX = newFactory.createXMLStreamWriter(out);
+			outX.setPrefix("imp", WL_OSB_EXPORT);
+			writeHeader();
 
-		writeProperties(getHeaderEntries());
+			writeProperties(getHeaderEntries());
 
-		for (IExportItem iExportItem : items) {
-			writeExportedItemInfo(iExportItem.getInstanceId(), iExportItem.getTypeId(),
-					convertItemToEntries(iExportItem));
+			System.out.println(items.size());
+			
+			for (IExportItem iExportItem : items) {
+				writeExportedItemInfo(iExportItem.getInstanceId(), iExportItem.getTypeId(),
+						convertItemToEntries(iExportItem));
+			}
+
+			close();
+		} catch (XMLStreamException e) {
+			throw new IOException("cannot write correct xml exportInfo", e);
 		}
-
-		close();
 	}
 
 	protected List<Entry> convertItemToEntries(IExportItem item) {
@@ -160,6 +167,8 @@ public class ExportInfoBuilder {
 	protected void writeProperty(Entry entry) throws XMLStreamException {
 		outX.writeCharacters(LF + TAB + TAB);
 		outX.writeStartElement(WL_OSB_EXPORT, "property");
+		System.out.println("x " +entry.getKey() + " " + entry.getValue());
+		
 		outX.writeAttribute("name", entry.getKey());
 		outX.writeAttribute("value", entry.getValue());
 		outX.writeEndElement();
@@ -176,6 +185,7 @@ public class ExportInfoBuilder {
 		outX.writeCharacters(LF);
 		outX.writeEndDocument();
 		outX.writeCharacters(LF);
+		outX.close();
 	}
 
 	private static class Entry {

@@ -2,6 +2,7 @@ package org.mates.osb.resources;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +24,19 @@ public class ExportItem implements IExportItem {
 
 	private List<String> extRefs = new ArrayList<String>();
 
-	private Map<String, String> property;
+	private Map<String, String> property = new HashMap<String, String>();
 
 	@Override
 	public String getInstanceId() {
 		return instanceId;
+	}
+
+	public void setInstanceId(String instanceId) {
+		this.instanceId = instanceId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
 	}
 
 	@Override

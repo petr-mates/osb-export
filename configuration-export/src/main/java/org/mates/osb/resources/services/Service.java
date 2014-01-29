@@ -17,6 +17,7 @@ package org.mates.osb.resources.services;
  */
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mates.osb.path.IPath;
@@ -35,7 +36,7 @@ public abstract class Service implements IResource {
 		this.parent = parent;
 		this.file = file;
 	}
-	
+
 	public String getName() {
 		return FileUtils.getBaseName(file.getName());
 	}
@@ -51,7 +52,6 @@ public abstract class Service implements IResource {
 	}
 
 	public List<IReference> getReferences() {
-		// TODO implements
-		return null;
+		return new ArrayList<IReference>();
 	}
 }

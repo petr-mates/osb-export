@@ -17,7 +17,6 @@ package org.mates.osb.resources.services;
  */
 
 
-import org.mates.osb.export.IExportItem;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 
@@ -30,19 +29,13 @@ public class SimpleServiceProvider extends ServiceProvider {
 		this.referenceType = referenceType;
 	}
 
-	public ReferenceType getResourceType() {
+	public ReferenceType getReferenceType() {
 		return referenceType;
 	}
 
 	@Override
 	protected String getFilename() {
-		return getResource().getName() + "." + getResourceType().name();
-	}
-
-	@Override
-	public IExportItem getExportItem() {
-		// TODO Auto-generated method stub
-		return null;
+		return getResource().getName() + "." + getReferenceType().name();
 	}
 
 }

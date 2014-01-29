@@ -30,4 +30,25 @@ public abstract class ExportProvider implements IExportProvider {
 		return resource;
 	}
 
+	@Override
+	public ExportItem getExportItem() {
+		ExportItem exportItem = new ExportItem();
+		ReferenceType resourceType = getReferenceType();
+		exportItem.setDataClass(resourceType.getClazz());
+		exportItem.setRepresentationVersion(Integer.toString(resourceType.getVersion()));
+		exportItem.setIsEncrypted("false");
+		exportItem.setJarEntry(getJarEntry());
+		exportItem.setTypeId(resourceType.toString());
+		exportItem.setInstanceId(getResource().getPath().buildPath("/"));
+		return exportItem;
+	}
+
+	/**
+	 * gets Jar Entry for this resource. default implementation is
+	 * <code>resource.path.buildPath('/') '.' resourceType<code>.
+	 * @return
+	 */
+	protected String getJarEntry() {
+		return getResource().getPath().buildPath("/") + "." + getReferenceType().toString();
+	}
 }

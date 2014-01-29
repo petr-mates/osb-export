@@ -27,7 +27,7 @@ import org.mates.osb.resources.ReferenceType;
  */
 public interface IExportProvider {
 
-	public ReferenceType getResourceType();
+	public ReferenceType getReferenceType();
 
 	public IExportItem getExportItem();
 

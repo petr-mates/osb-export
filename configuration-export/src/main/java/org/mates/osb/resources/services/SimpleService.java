@@ -17,10 +17,8 @@ package org.mates.osb.resources.services;
  */
 
 import java.io.File;
-import java.util.List;
 
 import org.mates.osb.export.IExportProvider;
-import org.mates.osb.reference.IReference;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 import org.mates.osb.resources.ResourceType;
@@ -40,11 +38,6 @@ public class SimpleService extends Service {
 
 	public IExportProvider getExportProvider() {
 		return new SimpleServiceProvider(this, getReferenceType());
-	}
-
-	public List<IReference> getReferences() {
-		// TODO implements
-		return null;
 	}
 
 	protected ReferenceType getReferenceType() {
