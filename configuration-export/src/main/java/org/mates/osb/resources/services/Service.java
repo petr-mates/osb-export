@@ -17,14 +17,14 @@ package org.mates.osb.resources.services;
  */
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.mates.osb.ISource;
-import org.mates.osb.Source;
 import org.mates.osb.path.IPath;
+import org.mates.osb.path.ISource;
+import org.mates.osb.path.Source;
+import org.mates.osb.reference.IReference;
 import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.IReference;
-import org.mates.osb.resources.ResourceType;
 import org.mates.osb.utils.FileUtils;
 
 public abstract class Service implements IResource {
@@ -37,10 +37,6 @@ public abstract class Service implements IResource {
 		this.file = file;
 	}
 
-	public ResourceType getType() {
-		return null;
-	}
-	
 	public String getName() {
 		return FileUtils.getBaseName(file.getName());
 	}
@@ -56,7 +52,6 @@ public abstract class Service implements IResource {
 	}
 
 	public List<IReference> getReferences() {
-		// TODO implements
-		return null;
+		return new ArrayList<IReference>();
 	}
 }

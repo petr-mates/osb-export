@@ -1,4 +1,4 @@
-package org.mates.osb.resources.folders;
+package org.mates.osb.resources.services;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -19,48 +19,48 @@ package org.mates.osb.resources.folders;
 import java.io.File;
 
 import org.mates.osb.export.IExportProvider;
-import org.mates.osb.path.IPath;
-import org.mates.osb.path.ISource;
 import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.Resource;
+import org.mates.osb.resources.ReferenceType;
 import org.mates.osb.resources.ResourceType;
 
-public class Folder extends Resource implements IResource {
+public class SimpleService extends Service {
 
-	private File dirFile;
+	private ResourceType resourceType;
 
-	private IResource parent;
-
-	public Folder(File file, IResource parent) {
-		this.parent = parent;
-		dirFile = file;
+	public SimpleService(File file, IResource parent, ResourceType resourceType) {
+		super(file, parent);
+		this.resourceType = resourceType;
 	}
 
-	/**
-	 * Returns {@link ResourceType#FOLDER}
-	 */
 	public ResourceType getType() {
-		return ResourceType.FOLDER;
-	}
-
-	/**
-	 * returns name of the directory
-	 */
-	public String getName() {
-		return dirFile.getName();
+		return resourceType;
 	}
 
 	public IExportProvider getExportProvider() {
-		return new ExportFolderProvider(this);
+		return new SimpleServiceProvider(this, getReferenceType());
 	}
 
-	public IPath getPath() {
-		IPath path = parent.getPath();
-		path.addChild(getName());
-		return path;
-	}
-
-	public ISource getSource() {
-		return null;
+	protected ReferenceType getReferenceType() {
+		ReferenceType ref = null;
+		switch (resourceType) {
+		case BIZ:
+			ref = ReferenceType.BusinessService;
+			break;
+		case PROXY:
+			ref = ReferenceType.ProxyService;
+			break;
+		case ALERT:
+			ref = ReferenceType.AlertDestination;
+			break;
+		case PROVIDER:
+			ref = ReferenceType.ServiceProvider;
+			break;
+		case ACCOUNT:
+			ref = ReferenceType.ServiceAccount;
+			break;
+		default:
+			break;
+		}
+		return ref;
 	}
 }

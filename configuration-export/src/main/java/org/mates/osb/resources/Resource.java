@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Resource implements IResource {
+public abstract class Resource implements IResource, IFolderResource {
 
 	private List<IResource> resourceList = new ArrayList<IResource>();
 
@@ -28,6 +28,7 @@ public abstract class Resource implements IResource {
 		resourceList.add(resource);
 	}
 
+	@Override
 	public List<IResource> getResources() {		
 		return Collections.unmodifiableList(resourceList);
 	}

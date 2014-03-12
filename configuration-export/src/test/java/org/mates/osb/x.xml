@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<xml-fragment xmlns:imp="http://www.bea.com/wli/config/importexport" name="ALSB-IDE_build_1373550650267" version="v2">
+    <imp:properties>
+        <imp:property name="username" value="node"></imp:property>
+        <imp:property name="description" value="configuration-export"></imp:property>
+        <imp:property name="exporttime" value="Tue Jan 28 14:19:54 CET 2014"></imp:property>
+        <imp:property name="productname" value="Oracle Service Bus"></imp:property>
+        <imp:property name="productversion" value="11.1.1.5"></imp:property>
+        <imp:property name="projectLevelExport" value="true"></imp:property>
+    </imp:properties>
+<imp:exportedItemInfo instanceId="instanceId" typeId="typeId">
+    <imp:properties>
+        <imp:property name="representationversion" value="0"></imp:property>
+        <imp:property name="dataclass" value="dataclass"></imp:property>
+        <imp:property name="isencrypted" value="encrypted"></imp:property>
+        <imp:property name="jarentryname" value="jarEntry"></imp:property>
+        <imp:property name="extrefs" value="ref"></imp:property>
+    </imp:properties>
+</imp:exportedItemInfo>
+
+</xml-fragment>

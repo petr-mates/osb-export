@@ -20,10 +20,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.mates.osb.export.IExportDirectory;
 import org.mates.osb.export.IExportProvider;
+import org.mates.osb.reference.IReference;
+import org.mates.osb.resources.ExportItem;
 import org.mates.osb.resources.ExportProvider;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.utils.FileUtils;
@@ -38,7 +41,7 @@ public abstract class ServiceProvider extends ExportProvider implements IExportP
 
 	protected File getTargetFile(IExportDirectory dir) {
 		String pathWithoutExtension = getResource().getPath().buildPath("/");
-		String stringFilePath = pathWithoutExtension + "." + getResourceType().name();
+		String stringFilePath = pathWithoutExtension + "." + getReferenceType().name();
 		return new File(dir.getExportDir(), stringFilePath);
 	}
 
@@ -66,5 +69,16 @@ public abstract class ServiceProvider extends ExportProvider implements IExportP
 			FileUtils.closeQuietly(fous);
 			FileUtils.closeQuietly(source);
 		}
+	}
+
+	@Override
+	public ExportItem getExportItem() {
+		ExportItem exportItem = super.getExportItem();
+		List<IReference> references = ((Service) getResource()).getReferences();
+		for (IReference iReference : references) {
+			String value = iReference.getType().toString() + "$" + iReference.getPath().replace('/', '$');
+			exportItem.addExtRefs(value);
+		}
+		return exportItem;
 	}
 }

@@ -1,4 +1,6 @@
-package org.mates.osb.resources;
+package org.mates.osb.reference;
+
+import org.mates.osb.resources.ReferenceType;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -26,7 +28,7 @@ public interface IReference {
 	 * Holds type of resource to which this resource refers.
 	 * @return
 	 */
-	public ResourceType getType();
+	public ReferenceType getType();
 
 	/**
 	 * Path to reference. Reference is normalized path to referenced resource.
@@ -34,4 +36,10 @@ public interface IReference {
 	 * @return
 	 */
 	public String getPath();
+	
+	/**
+	 * Original value reference defined in resource. for example relative path from xsd import or include.
+	 * @return
+	 */
+	public String getOriginalValue();
 }

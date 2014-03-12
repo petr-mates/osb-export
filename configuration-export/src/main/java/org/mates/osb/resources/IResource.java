@@ -16,9 +16,9 @@ package org.mates.osb.resources;
  * limitations under the License.
  */
 
-import org.mates.osb.ISource;
 import org.mates.osb.export.IExportProvider;
 import org.mates.osb.path.IPath;
+import org.mates.osb.path.ISource;
 
 /**
  * This interface represents all osb resources, like ProxyService,

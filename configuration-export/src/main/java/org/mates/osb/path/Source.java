@@ -1,4 +1,4 @@
-package org.mates.osb;
+package org.mates.osb.path;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

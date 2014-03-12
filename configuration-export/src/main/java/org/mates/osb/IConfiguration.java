@@ -1,4 +1,9 @@
-package org.mates.osb.resources.services;
+package org.mates.osb;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.mates.osb.export.IExportDirectory;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -16,30 +21,11 @@ package org.mates.osb.resources.services;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.util.List;
+public interface IConfiguration {
 
-import org.mates.osb.export.IExportProvider;
-import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.IReference;
-import org.mates.osb.resources.ResourceType;
+	public void setSourceDirectory(File directory);
 
-public class ProxyService extends Service {
+	public void addProject(String project);	
 
-	public ProxyService(File file, IResource parent) {
-		super(file, parent);
-	}
-
-	public ResourceType getType() {
-		return ResourceType.PROXY;
-	}
-
-	public IExportProvider getExportProvider() {
-		return new ProxyServiceProvider(this);
-	}
-
-	public List<IReference> getReferences() {
-		// TODO implements
-		return null;
-	}
+	public void exportToDirectory(IExportDirectory output) throws IOException;
 }

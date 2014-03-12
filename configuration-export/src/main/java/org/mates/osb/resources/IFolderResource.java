@@ -1,4 +1,4 @@
-package org.mates.osb.resources.services;
+package org.mates.osb.resources;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -16,29 +16,13 @@ package org.mates.osb.resources.services;
  * limitations under the License.
  */
 
-import org.mates.osb.export.IExportItem;
-import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.ReferenceType;
+import java.util.List;
 
-public class ProxyServiceProvider extends ServiceProvider {
-
-	public ProxyServiceProvider(IResource resource) {
-		super(resource);
-	}
-
-	public ReferenceType getResourceType() {
-		return ReferenceType.ProxyService;
-	}
-
-	@Override
-	protected String getFilename() {
-		return getResource().getName() + "." + getResourceType().name();
-	}
-
-	@Override
-	public IExportItem getExportItem() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public interface IFolderResource {
+	/**
+	 * 
+	 * @return
+	 */
+	public List<IResource> getResources();
 
 }

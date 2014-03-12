@@ -18,7 +18,6 @@ package org.mates.osb.mojo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -26,10 +25,9 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.mates.osb.Configuration;
+import org.mates.osb.IConfiguration;
 import org.mates.osb.export.IExportDirectory;
-import org.mates.osb.resources.IResource;
-import org.mates.osb.resources.ResourceBuilder;
-import org.mates.osb.resources.folders.Folder;
 
 /**
  * Goal exports all projects from source directory to (output
@@ -67,8 +65,10 @@ public class CompileConfigurationMojo extends AbstractMojo {
 
 	private Log log;
 
+	private IConfiguration configuration = new Configuration();
+
 	public void execute() throws MojoExecutionException {
-		File destDir = outputDirectory;
+		File destDir = outputDirectory;		
 		if (new File(destDir, "ExportInfo").exists()) {
 			log.info("ExportInfo exists .... return");
 			return;
@@ -77,31 +77,18 @@ public class CompileConfigurationMojo extends AbstractMojo {
 	}
 
 	protected void processProjects(File sourceDir) throws MojoExecutionException {
-		try {
-			File[] listFiles = sourceDir.listFiles();
-			for (File file : listFiles) {
-				if (file.isDirectory()) {
-					compileProject(new ResourceBuilder().buildTree(file));
-				}
+		configuration.setSourceDirectory(sourceDir);
+		File[] listFiles = sourceDir.listFiles();
+		for (File file : listFiles) {
+			if (file.isDirectory()) {
+				configuration.addProject(file.getName());
 			}
-		} catch (IOException e) {
-			throw new MojoExecutionException("error compile configuration", e);
 		}
-	}
-
-	protected void compileProject(Folder project) throws IOException {
-		project.getExportProvider().exportTo(getExportDirectory());
 		
-		List<IResource> resources = project.getResources();
-		
-		for (IResource iResource : resources) {
-			if (iResource instanceof Folder) {
-				compileProject((Folder) iResource);
-			} else {
-				if (iResource.getExportProvider() != null) {
-					iResource.getExportProvider().exportTo(getExportDirectory());
-				}
-			}
+		try {
+			configuration.exportToDirectory(getExportDirectory());
+		} catch (IOException e) {
+			new MojoExecutionException("exporting exception ", e);
 		}
 	}
 

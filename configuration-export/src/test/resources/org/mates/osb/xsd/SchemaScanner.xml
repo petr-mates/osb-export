@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://default/schema"
+	targetNamespace="http://default/schema">
+	<xs:import namespace="http://import/schema" schemaLocation="import.xsd" />
+	<xs:import namespace="http://import/schema"/>
+	<xs:import namespace="http://import/schema2" schemaLocation="import2.xsd" />
+	<xs:include schemaLocation="include.xsd" />
+</xs:schema>

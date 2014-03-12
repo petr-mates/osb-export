@@ -1,4 +1,4 @@
-package org.mates.osb.export;
+package org.mates.osb.resources.services;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -16,27 +16,26 @@ package org.mates.osb.export;
  * limitations under the License.
  */
 
-import java.io.IOException;
 
+import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ReferenceType;
 
-/**
- * An object that implements this interface, provide all resource export.
- * 
- * @author mates
- */
-public interface IExportProvider {
+public class SimpleServiceProvider extends ServiceProvider {
 
-	public ReferenceType getReferenceType();
+	private ReferenceType referenceType;
 
-	public IExportItem getExportItem();
+	public SimpleServiceProvider(IResource resource, ReferenceType referenceType) {
+		super(resource);
+		this.referenceType = referenceType;
+	}
 
-	/**
-	 * Method should export resource to target directory. Copy content and make
-	 * some other customizations.
-	 * 
-	 * @param dir
-	 * @throws IOException
-	 */
-	public void exportTo(IExportDirectory dir) throws IOException;
+	public ReferenceType getReferenceType() {
+		return referenceType;
+	}
+
+	@Override
+	protected String getFilename() {
+		return getResource().getName() + "." + getReferenceType().name();
+	}
+
 }

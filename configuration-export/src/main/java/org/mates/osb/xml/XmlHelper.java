@@ -54,8 +54,12 @@ public final class XmlHelper {
 	protected static DOMImplementationRegistry getDOMImplementationRegistry() {
 		try {
 			return DOMImplementationRegistry.newInstance();
-		} catch (ReflectiveOperationException e) {
-			throw new XmlException("DomImplementaion problem", e);
+		} catch (ClassNotFoundException e) {
+			throw new XmlException("DomImplementaion problem");
+		} catch (InstantiationException e) {
+			throw new XmlException("DomImplementaion problem");
+		} catch (IllegalAccessException e) {
+			throw new XmlException("DomImplementaion problem");
 		}
 	}
 

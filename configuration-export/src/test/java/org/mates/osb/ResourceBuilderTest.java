@@ -1,4 +1,4 @@
-package org.mates.osb.resources;
+package org.mates.osb;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.
@@ -18,7 +18,9 @@ package org.mates.osb.resources;
 
 import java.io.File;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.mates.osb.resources.ResourceType;
 
 public class ResourceBuilderTest {
 
@@ -26,6 +28,16 @@ public class ResourceBuilderTest {
 	public void test() {
 		ResourceBuilder resourceBuilder = new ResourceBuilder();
 		resourceBuilder.buildTree(new File("d:\\svn\\osb\\trunk\\configuration\\OBS"));
+	}
+
+	@Test
+	public void testGetResource() {
+		ResourceBuilder resourceBuilder = new ResourceBuilder();
+		Assert.assertEquals(ResourceType.PROXY, resourceBuilder.getResource(new File("test.proxy"), null).getType());
+		Assert.assertEquals(ResourceType.BIZ, resourceBuilder.getResource(new File("test.biz"), null).getType());
+		Assert.assertEquals(ResourceType.ACCOUNT, resourceBuilder.getResource(new File("test.sa"), null).getType());
+		Assert.assertEquals(ResourceType.PROVIDER, resourceBuilder.getResource(new File("test.skp"), null).getType());
+		Assert.assertEquals(ResourceType.ALERT, resourceBuilder.getResource(new File("test.alert"), null).getType());
 	}
 
 }

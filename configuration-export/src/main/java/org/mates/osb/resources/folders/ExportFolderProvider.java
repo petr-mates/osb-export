@@ -23,7 +23,6 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.mates.osb.export.IExportDirectory;
-import org.mates.osb.export.IExportItem;
 import org.mates.osb.export.IExportProvider;
 import org.mates.osb.path.IPath;
 import org.mates.osb.resources.ExportProvider;
@@ -38,15 +37,11 @@ public class ExportFolderProvider extends ExportProvider implements IExportProvi
 		super(dir);
 	}
 
-	public IExportItem getExportItem() {
-		return null;
-	}
-
 	protected String getFilename() {
 		return EXPORT_FILE_NAME;
 	}
 
-	public ReferenceType getResourceType() {
+	public ReferenceType getReferenceType() {
 		return ReferenceType.LocationData;
 	}
 
