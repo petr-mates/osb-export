@@ -22,8 +22,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mates.osb.resources.IResource;
 import org.mates.osb.resources.ResourceType;
-import org.mates.osb.resources.folders.Folder;
-import org.mates.osb.resources.folders.Project;
 
 public class FolderTest {
 

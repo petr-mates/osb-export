@@ -27,13 +27,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mates.osb</groupId>
-			<artifactId>configuration-export</artifactId>			
+			<artifactId>configuration-export</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>

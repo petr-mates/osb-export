@@ -77,7 +77,7 @@ public class ExportInfoBuilder {
 		}
 
 		Map<String, String> properties = item.getProperties();
-		for (java.util.Map.Entry<String, String> entry : properties.entrySet()) {
+		for (Map.Entry<String, String> entry : properties.entrySet()) {
 			list.add(new Entry(entry.getKey(), entry.getValue()));
 		}
 
