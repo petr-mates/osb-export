@@ -28,18 +28,18 @@ public interface IReference {
 	 * Holds type of resource to which this resource refers.
 	 * @return
 	 */
-	public ReferenceType getType();
+	ReferenceType getType();
 
 	/**
 	 * Path to reference. Reference is normalized path to referenced resource.
 	 * Directories are separated with '/'
 	 * @return
 	 */
-	public String getPath();
-	
+	String getPath();
+
 	/**
 	 * Original value reference defined in resource. for example relative path from xsd import or include.
 	 * @return
 	 */
-	public String getOriginalValue();
+	String getOriginalValue();
 }

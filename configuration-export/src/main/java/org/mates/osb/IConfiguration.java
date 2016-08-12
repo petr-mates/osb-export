@@ -23,9 +23,9 @@ import org.mates.osb.export.IExportDirectory;
 
 public interface IConfiguration {
 
-	public void setSourceDirectory(File directory);
+	void setSourceDirectory(File directory);
 
-	public void addProject(String project);	
+	void addProject(String project);
 
-	public void exportToDirectory(IExportDirectory output) throws IOException;
+	void exportToDirectory(IExportDirectory output) throws IOException;
 }

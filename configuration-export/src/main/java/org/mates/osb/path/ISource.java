@@ -25,5 +25,5 @@ import java.io.InputStream;
 
 public interface ISource {
 
-	public InputStream getInputStream() throws IOException;
+	InputStream getInputStream() throws IOException;
 }

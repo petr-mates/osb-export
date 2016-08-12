@@ -20,9 +20,9 @@ import java.util.List;
 
 public interface IFolderResource {
 	/**
-	 * 
+	 *
 	 * @return
 	 */
-	public List<IResource> getResources();
+	List<IResource> getResources();
 
 }

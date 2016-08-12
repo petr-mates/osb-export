@@ -3,8 +3,11 @@
 .settings/
 target/
 .classpath
+.idea/
 
 # Package Files #
 *.jar
 *.war
 *.ear
+*.iml
+*.pmd

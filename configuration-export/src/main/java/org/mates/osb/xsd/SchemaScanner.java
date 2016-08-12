@@ -58,8 +58,7 @@ public class SchemaScanner {
 
 	private String getNamesAttribute(Node item, String attrName) {
 		NamedNodeMap attributes = item.getAttributes();
-		String schemaLocation = attributes.getNamedItem(attrName).getNodeValue();
-		return schemaLocation;
+		return attributes.getNamedItem(attrName).getNodeValue();
 	}
 
 	public String getTargetNamespace() {

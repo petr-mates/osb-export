@@ -2,7 +2,7 @@ package org.mates.osb.xsd;
 
 public interface ISchemaLocation {
 
-	public String getSchemaLocation();
+	String getSchemaLocation();
 
-	public String getNamespace();
+	String getNamespace();
 }

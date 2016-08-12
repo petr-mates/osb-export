@@ -32,82 +32,82 @@ import org.mates.osb.export.IExportDirectory;
 /**
  * Goal exports all projects from source directory to (output
  * directory)/osb-conf.
- * 
+ *
  */
 @Mojo(name = "compile", defaultPhase = LifecyclePhase.COMPILE)
 public class CompileConfigurationMojo extends AbstractMojo {
 
-	/**
-	 * build output directory. - default=${project.build.directory}/osb-conf.
-	 * -DoutputDir=...
-	 */
-	@Parameter(defaultValue = "${project.build.directory}/osb-conf", property = "outputDir", required = true)
-	private File outputDirectory;
-
-	/**
-	 * directory excluded from scan. - default=target -DexcludeDir=...
-	 */
-	@Parameter(defaultValue = "target", property = "excludeDir", required = false)
-	private String excludeDir;
-
-	/**
-	 * source directory to be scanned. - default=${project.basedir}.
-	 * -DsourceDir=...
-	 */
-	@Parameter(defaultValue = "${project.basedir}", property = "sourceDir", required = true)
-	private File sourceDir;
-
-	/**
-     * 
+    /**
+     * build output directory. - default=${project.build.directory}/osb-conf.
+     * -DoutputDir=...
      */
-	@Parameter(property = "ignoredDirs", required = false)
-	private String[] ignoredDirs = new String[0];
+    @Parameter(defaultValue = "${project.build.directory}/osb-conf", property = "outputDir", required = true)
+    private File outputDirectory;
 
-	private Log log;
+    /**
+     * directory excluded from scan. - default=target -DexcludeDir=...
+     */
+    @Parameter(defaultValue = "target", property = "excludeDir", required = false)
+    private String excludeDir;
 
-	private IConfiguration configuration = new Configuration();
+    /**
+     * source directory to be scanned. - default=${project.basedir}.
+     * -DsourceDir=...
+     */
+    @Parameter(defaultValue = "${project.basedir}", property = "sourceDir", required = true)
+    private File sourceDir;
 
-	public void execute() throws MojoExecutionException {
-		File destDir = outputDirectory;		
-		if (new File(destDir, "ExportInfo").exists()) {
-			log.info("ExportInfo exists .... return");
-			return;
-		}
-		processProjects(sourceDir);
-	}
+    /**
+     *
+     */
+    @Parameter(property = "ignoredDirs", required = false)
+    private String[] ignoredDirs = new String[0];
 
-	protected void processProjects(File sourceDir) throws MojoExecutionException {
-		configuration.setSourceDirectory(sourceDir);
-		File[] listFiles = sourceDir.listFiles();
-		for (File file : listFiles) {
-			if (file.isDirectory()) {
-				configuration.addProject(file.getName());
-			}
-		}
-		
-		try {
-			configuration.exportToDirectory(getExportDirectory());
-		} catch (IOException e) {
-			new MojoExecutionException("exporting exception ", e);
-		}
-	}
+    private Log log;
 
-	@Override
-	public void setLog(Log aLog) {
-		super.setLog(aLog);
-		this.log = aLog;
-	}
+    private IConfiguration configuration = new Configuration();
 
-	protected IExportDirectory getExportDirectory() {
-		return new ExportDirectory();
-	}
+    public void execute() throws MojoExecutionException {
+        File destDir = outputDirectory;
+        if (new File(destDir, "ExportInfo").exists()) {
+            log.info("ExportInfo exists .... return");
+            return;
+        }
+        processProjects(sourceDir);
+    }
 
-	private class ExportDirectory implements IExportDirectory {
+    protected void processProjects(File sourceDir) throws MojoExecutionException {
+        configuration.setSourceDirectory(sourceDir);
+        File[] listFiles = sourceDir.listFiles();
+        for (File file : listFiles) {
+            if (file.isDirectory()) {
+                configuration.addProject(file.getName());
+            }
+        }
 
-		@Override
-		public File getExportDir() {
-			return outputDirectory;
-		}
+        try {
+            configuration.exportToDirectory(getExportDirectory());
+        } catch (IOException e) {
+            throw new MojoExecutionException("exporting exception ", e);
+        }
+    }
 
-	}
+    @Override
+    public void setLog(Log aLog) {
+        super.setLog(aLog);
+        this.log = aLog;
+    }
+
+    protected IExportDirectory getExportDirectory() {
+        return new ExportDirectory();
+    }
+
+    private class ExportDirectory implements IExportDirectory {
+
+        @Override
+        public File getExportDir() {
+            return outputDirectory;
+        }
+
+    }
 }

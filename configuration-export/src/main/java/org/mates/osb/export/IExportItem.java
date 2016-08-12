@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Holder for references that should be exported.
- * 
+ *
  * @author mates
  */
 public interface IExportItem {
@@ -41,30 +41,30 @@ public interface IExportItem {
 	 * </pre>
 	 */
 
-	public static final String REPRESENTATION_VERSION = "representationversion";
-	public static final String DATA_CLASS = "dataclass";
-	public static final String IS_ENCRYPTED = "isencrypted";
-	public static final String JAR_ENTRY_NAME = "jarentryname";
-	public static final String EXT_REFS = "extrefs";
+	String REPRESENTATION_VERSION = "representationversion";
+	String DATA_CLASS = "dataclass";
+	String IS_ENCRYPTED = "isencrypted";
+	String JAR_ENTRY_NAME = "jarentryname";
+	String EXT_REFS = "extrefs";
 
-	public String getInstanceId();
+	String getInstanceId();
 
-	public String getTypeId();
+	String getTypeId();
 
-	public String getRepresentationVersion();
+	String getRepresentationVersion();
 
-	public String getDataClass();
+	String getDataClass();
 
-	public String getIsEncrypted();
+	String getIsEncrypted();
 
-	public String getJarEntry();
+	String getJarEntry();
 
-	public void addExtRefs(String value);
+	void addExtRefs(String value);
 
-	public List<String> getExtRefs();
+	List<String> getExtRefs();
 
-	public void putProperty(String key, String value);
+	void putProperty(String key, String value);
 
-	public Map<String, String> getProperties();
+	Map<String, String> getProperties();
 
 }
